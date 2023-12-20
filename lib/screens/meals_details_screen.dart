@@ -2,7 +2,8 @@ import 'package:cozinha/models/meal.dart';
 import 'package:flutter/material.dart';
 
 class MealsDetailsScreen extends StatelessWidget {
-  const MealsDetailsScreen({super.key});
+  final Function(Meal) onPressed;
+  MealsDetailsScreen({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +88,12 @@ class MealsDetailsScreen extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.star),
+        onPressed: () {
+          onPressed(meal);
+        },
       ),
     );
   }
