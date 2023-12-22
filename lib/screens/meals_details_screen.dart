@@ -1,10 +1,16 @@
 import 'package:cozinha/models/meal.dart';
 import 'package:flutter/material.dart';
 
-class MealsDetailsScreen extends StatelessWidget {
+class MealsDetailsScreen extends StatefulWidget {
   final Function(Meal) onPressed;
-  MealsDetailsScreen({super.key, required this.onPressed});
+  final bool Function(Meal) isFavorite;
+  MealsDetailsScreen({super.key, required this.onPressed, required this.isFavorite});
 
+  @override
+  State<MealsDetailsScreen> createState() => _MealsDetailsScreenState();
+}
+
+class _MealsDetailsScreenState extends State<MealsDetailsScreen> {
   @override
   Widget build(BuildContext context) {
 
@@ -90,9 +96,11 @@ class MealsDetailsScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.star),
+        child: widget.isFavorite(meal) ? Icon(Icons.star) : Icon(Icons.star_border),
         onPressed: () {
-          onPressed(meal);
+          setState(() {
+            widget.onPressed(meal);  
+          });
         },
       ),
     );

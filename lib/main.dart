@@ -38,6 +38,10 @@ class MyApp extends StatelessWidget {
     : favoriteMeals.add(meal);
   }
 
+  bool _isFavorite(Meal meal) {
+    return favoriteMeals.contains(meal);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -57,7 +61,7 @@ class MyApp extends StatelessWidget {
       routes: {
         AppRoutes.HOME:  (_) => TabsScreen(favoriteMeals: favoriteMeals,),
         AppRoutes.CATEGORIES_MEALS: (_) => CategoriesMealsScreen(meals: _avaliableMeals),
-        AppRoutes.MEALS_DETAILS: (_) => MealsDetailsScreen(onPressed: _toggleFavorite,),
+        AppRoutes.MEALS_DETAILS: (_) => MealsDetailsScreen(onPressed: _toggleFavorite, isFavorite: _isFavorite, ),
         AppRoutes.SETTINGS: (_) => SettingsScreen(onSettingsChanged: _filterMels, settings: _settings,),
       },
       onUnknownRoute: (settings) {
